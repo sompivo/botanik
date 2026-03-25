@@ -1,117 +1,122 @@
-const DB = [
-  {id:0,n:"Orchidea (Phalaenopsis)"},
-  {id:1,n:"Monstera deliciosa"},
-  {id:2,n:"Fikus elastický (Ficus elastica)"},
-  {id:3,n:"Aloe vera"},
-  {id:4,n:"Zamiokulkas (ZZ plant)"},
-  {id:5,n:"Pothos / Epipremnum"},
-  {id:6,n:"Svokrine jazyky (Sansevieria)"},
-  {id:7,n:"Fialka (Saintpaulia)"},
-  {id:8,n:"Kaktus guľatý"},
-  {id:9,n:"Begónia"},
-  {id:10,n:"Šéflera (Schefflera)"},
-  {id:11,n:"Dracéna"},
-  {id:12,n:"Filodendron srdcový"},
-  {id:13,n:"Kalatea (Calathea)"},
-  {id:14,n:"Papraď (Nephrolepis)"},
-  {id:15,n:"Tučnolist / Crassula"},
-  {id:16,n:"Brečtan (Hedera helix)"},
-  {id:17,n:"Spatifilum (Spathiphyllum)"},
-  {id:18,n:"Antúrium"},
-  {id:19,n:"Fikus benjamín"},
-  {id:20,n:"Yucca"},
-  {id:21,n:"Palma Areka"},
-  {id:22,n:"Aglaonema"},
-  {id:23,n:"Dieffenbachia"},
-  {id:24,n:"Kroton (Codiaeum)"},
-  {id:25,n:"Pilea peperomioides"},
-  {id:26,n:"Maranta"},
-  {id:27,n:"Haworthia"},
-  {id:28,n:"Echeveria"},
-  {id:29,n:"Tradescantia"},
-  {id:30,n:"Kalanchoe"},
-  {id:31,n:"Zelenec (Chlorophytum)"},
-  {id:32,n:"Hoya / Voskovka"},
-  {id:33,n:"Alocasia"},
-  {id:34,n:"Cyklámen"},
-  {id:35,n:"Peperomia"},
-  {id:36,n:"Levanduľa"},
-  {id:37,n:"Vianočná hviezda"},
-  {id:38,n:"Kaktus stĺpovitý (Cereus)"},
-  {id:39,n:"Kaktus opuncie"},
-  {id:40,n:"Stromanthe"},
-  {id:41,n:"Palma horská (Chamaedorea)"},
-  {id:42,n:"Gerbera"},
-  {id:43,n:"Izbový bambus (Lucky bamboo)"},
-  {id:44,n:"Azalka (Rhododendron)"},
-  {id:45,n:"Fikus lyrata (Fiddle leaf fig)"},
-  {id:46,n:"Pachira (Money tree)"},
-  {id:47,n:"Oxalis / Šťavel"},
-  {id:48,n:"Dendrobium orchidea"},
-  {id:49,n:"Oncidium orchidea"},
-  {id:50,n:"Cattleya orchidea"},
-  {id:51,n:"Strelícia (Bird of paradise)"},
-  {id:52,n:"Kentia palma"},
-  {id:53,n:"Filodendron Monstera Adansonii"},
-  {id:54,n:"Filodendron Birkin"},
-  {id:55,n:"Calathea orbifolia"},
-  {id:56,n:"Calathea medallion"},
-  {id:57,n:"String of pearls (Senecio)"},
-  {id:58,n:"String of hearts (Ceropegia)"},
-  {id:59,n:"Rhipsalis"},
-  {id:60,n:"Adenium (Púštna ruža)"},
-  {id:61,n:"Fikus microcarpa (Ginseng)"},
-  {id:62,n:"Bonsai (Ficus)"},
-  {id:63,n:"Bambus (Bambusa)"},
-  {id:64,n:"Croton Petra"},
-  {id:65,n:"Scindapsus pictus (Satin pothos)"},
-  {id:66,n:"Antúrium clarinervium"},
-  {id:67,n:"Ctenanthe"},
-  {id:68,n:"Asparagus sprengeri"},
-  {id:69,n:"Aspidistra"},
-  {id:70,n:"Nephthytis / Syngonium"},
-  {id:71,n:"Coffea arabica (Kávovník)"},
-  {id:72,n:"Citrus (Citrón/Pomaranč)"},
-  {id:73,n:"Mäta"},
-  {id:74,n:"Bazalka"},
-  {id:75,n:"Rozmarín"},
-  {id:76,n:"Euphorbia trigona"},
-  {id:77,n:"Schlumbergera (Vianočný kaktus)"},
-  {id:78,n:"Lithops (Živé kamene)"},
-  {id:79,n:"Gasteria"},
-  {id:80,n:"Sedum"},
-  {id:81,n:"Senecio rowleyanus"},
-  {id:82,n:"Tillandsia (Air plant)"},
-  {id:83,n:"Neoregelia (Bromélia)"},
-  {id:84,n:"Vriesea (Bromélia)"},
-];
+const NAMES = [
+  "0=Orchidea Phalaenopsis",
+  "1=Monstera deliciosa",
+  "2=Fikus elasticky (Ficus elastica)",
+  "3=Aloe vera",
+  "4=Zamiokulkas (ZZ plant)",
+  "5=Pothos / Epipremnum",
+  "6=Svokrine jazyky (Sansevieria)",
+  "7=Fialka (Saintpaulia)",
+  "8=Kaktus gulaty",
+  "9=Begonia",
+  "10=Seflera (Schefflera)",
+  "11=Dracena",
+  "12=Filodendron srdcovy",
+  "13=Kalatea (Calathea)",
+  "14=Paprad (Nephrolepis)",
+  "15=Tucnolist / Crassula",
+  "16=Brectan (Hedera helix)",
+  "17=Spatifilum (Spathiphyllum)",
+  "18=Anturium",
+  "19=Fikus benjamin",
+  "20=Yucca",
+  "21=Palma Areka",
+  "22=Aglaonema",
+  "23=Dieffenbachia",
+  "24=Kroton (Codiaeum)",
+  "25=Pilea peperomioides",
+  "26=Maranta",
+  "27=Haworthia",
+  "28=Echeveria",
+  "29=Tradescantia",
+  "30=Kalanchoe",
+  "31=Zelenec (Chlorophytum)",
+  "32=Hoya / Voskovka",
+  "33=Alocasia",
+  "34=Cyklamen",
+  "35=Peperomia",
+  "36=Levandula",
+  "37=Vianocna hviezda",
+  "38=Kaktus stlpovity (Cereus)",
+  "39=Opuncia",
+  "40=Stromanthe",
+  "41=Palma horska (Chamaedorea)",
+  "42=Gerbera",
+  "43=Izbovy bambus (Lucky bamboo)",
+  "44=Azalka (Rhododendron)",
+  "45=Fikus lyrata (Fiddle leaf fig)",
+  "46=Pachira (Money tree)",
+  "47=Stavel (Oxalis)",
+  "48=Orchidea Dendrobium",
+  "49=Orchidea Oncidium",
+  "50=Orchidea Cattleya",
+  "51=Strelicia (Bird of paradise)",
+  "52=Kentia palma",
+  "53=Monstera Adansonii",
+  "54=Filodendron Birkin",
+  "55=Calathea orbifolia",
+  "56=Calathea medallion",
+  "57=String of pearls (Senecio)",
+  "58=String of hearts (Ceropegia)",
+  "59=Rhipsalis",
+  "60=Pustna ruza (Adenium)",
+  "61=Fikus Ginseng",
+  "62=Bonsai (Ficus)",
+  "63=Bambus",
+  "64=Kroton Petra",
+  "65=Satin Pothos (Scindapsus)",
+  "66=Anturium clarinervium",
+  "67=Ctenanthe",
+  "68=Asparagus sprengeri",
+  "69=Aspidistra",
+  "70=Syngonium",
+  "71=Kavovnik (Coffea arabica)",
+  "72=Citrus (Citron/Pomaranc)",
+  "73=Mata",
+  "74=Bazalka",
+  "75=Rozmarin",
+  "76=Euphorbia trigona",
+  "77=Vianocny kaktus (Schlumbergera)",
+  "78=Lithops (Zive kamene)",
+  "79=Gasteria",
+  "80=Sedum",
+  "81=Senecio rowleyanus",
+  "82=Tillandsia (Air plant)",
+  "83=Bromelia Neoregelia",
+  "84=Bromelia Vriesea"
+].join("\n");
 
-const NAMES = DB.map(p => p.id + "=" + p.n).join("\n");
-const DB_SIZE = DB.length;
+const DB_SIZE = 85;
 
 export async function POST(request) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
 
   if (!apiKey) {
     return Response.json(
-      { error: "ANTHROPIC_API_KEY nie je nastavený na serveri" },
+      { error: "ANTHROPIC_API_KEY nie je nastaveny" },
       { status: 500 }
     );
   }
 
   try {
-    const { image } = await request.json();
+    const body = await request.json();
+    const image = body.image;
 
     if (!image) {
-      return Response.json({ error: "Chýba obrázok" }, { status: 400 });
+      return Response.json(
+        { error: "Chyba obrazok" },
+        { status: 400 }
+      );
     }
+
+    const prompt = "You are an expert botanist. Carefully analyze this photo of a houseplant.\n\nLook at:\n- Leaf shape, size, color, texture, patterns\n- Stem type (woody, vine, rosette, thick/thin)\n- Flowers if present (color, shape)\n- Overall growth habit\n- Any distinctive features (holes in leaves, variegation, spines, aerial roots)\n\nThen match it to the SINGLE closest plant from this list. Consider all visual details before deciding.\n\nPlant list:\n" + NAMES + "\n\nIMPORTANT: Reply with ONLY the ID number. Nothing else. Just one number.";
 
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
+        "anthropic-version": "2023-06-01"
       },
       body: JSON.stringify({
         model: "claude-sonnet-4-20250514",
@@ -125,36 +130,21 @@ export async function POST(request) {
                 source: {
                   type: "base64",
                   media_type: "image/jpeg",
-                  data: image,
-                },
+                  data: image
+                }
               },
               {
                 type: "text",
-                text: `You are an expert botanist. Carefully analyze this photo of a houseplant.
-
-Look at:
-- Leaf shape, size, color, texture, patterns
-- Stem type (woody, vine, rosette, thick/thin)
-- Flowers if present (color, shape)
-- Overall growth habit
-- Any distinctive features (holes in leaves, variegation, spines, aerial roots)
-
-Then match it to the SINGLE closest plant from this list. Consider all visual details before deciding.
-
-Plant list:
-${NAMES}
-
-IMPORTANT: Reply with ONLY the ID number. Nothing else. Just one number.`,
-              },
-            ],
-          },
-        ],
-      }),
+                text: prompt
+              }
+            ]
+          }
+        ]
+      })
     });
 
     if (!res.ok) {
       const errText = await res.text();
-      console.error("Anthropic API error:", res.status, errText);
       return Response.json(
         { error: "AI chyba: " + res.status },
         { status: 502 }
@@ -162,15 +152,17 @@ IMPORTANT: Reply with ONLY the ID number. Nothing else. Just one number.`,
     }
 
     const data = await res.json();
-    let text = "";
-    for (const block of data.content || []) {
-      if (block.type === "text") text += block.text;
+    var text = "";
+    for (var i = 0; i < data.content.length; i++) {
+      if (data.content[i].type === "text") {
+        text = text + data.content[i].text;
+      }
     }
 
     const match = text.trim().match(/\d+/);
     if (!match) {
       return Response.json(
-        { error: "AI nevrátila platné číslo", raw: text },
+        { error: "AI nevratila cislo", raw: text },
         { status: 422 }
       );
     }
@@ -183,11 +175,10 @@ IMPORTANT: Reply with ONLY the ID number. Nothing else. Just one number.`,
       );
     }
 
-    return Response.json({ id });
+    return Response.json({ id: id });
   } catch (err) {
-    console.error("Server error:", err);
     return Response.json(
-      { error: "Serverová chyba: " + err.message },
+      { error: "Chyba servera: " + err.message },
       { status: 500 }
     );
   }

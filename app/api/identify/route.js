@@ -1,49 +1,93 @@
-// app/api/identify/route.js
-// Serverová funkcia — volá Anthropic API bezpečne zo servera
-// API kľúč je v environment variable, nikdy sa nedostane ku klientovi
-
 const DB = [
-  {id:0,n:"Orchidea",lat:"Phalaenopsis"},
-  {id:1,n:"Monstera",lat:"Monstera deliciosa"},
-  {id:2,n:"Fikus elastický",lat:"Ficus elastica"},
-  {id:3,n:"Aloe vera",lat:"Aloe vera"},
-  {id:4,n:"Zamiokulkas",lat:"Zamioculcas zamiifolia"},
-  {id:5,n:"Pothos",lat:"Epipremnum aureum"},
-  {id:6,n:"Svokrine jazyky",lat:"Sansevieria"},
-  {id:7,n:"Fialka",lat:"Saintpaulia"},
-  {id:8,n:"Kaktus",lat:"Cactaceae"},
-  {id:9,n:"Begónia",lat:"Begonia"},
-  {id:10,n:"Šéflera",lat:"Schefflera"},
-  {id:11,n:"Dracéna",lat:"Dracaena"},
-  {id:12,n:"Filodendron",lat:"Philodendron"},
-  {id:13,n:"Kalatea",lat:"Calathea"},
-  {id:14,n:"Papraď",lat:"Nephrolepis"},
-  {id:15,n:"Tučnolist",lat:"Crassula ovata"},
-  {id:16,n:"Brečtan",lat:"Hedera helix"},
-  {id:17,n:"Spatifilum",lat:"Spathiphyllum"},
-  {id:18,n:"Antúrium",lat:"Anthurium"},
-  {id:19,n:"Fikus benjamín",lat:"Ficus benjamina"},
-  {id:20,n:"Yucca",lat:"Yucca"},
-  {id:21,n:"Palma Areka",lat:"Dypsis lutescens"},
-  {id:22,n:"Aglaonema",lat:"Aglaonema"},
-  {id:23,n:"Dieffenbachia",lat:"Dieffenbachia"},
-  {id:24,n:"Kroton",lat:"Codiaeum"},
-  {id:25,n:"Pilea",lat:"Pilea peperomioides"},
-  {id:26,n:"Maranta",lat:"Maranta"},
-  {id:27,n:"Haworthia",lat:"Haworthia"},
-  {id:28,n:"Echeveria",lat:"Echeveria"},
-  {id:29,n:"Tradescantia",lat:"Tradescantia"},
-  {id:30,n:"Kalanchoe",lat:"Kalanchoe"},
-  {id:31,n:"Zelenec",lat:"Chlorophytum"},
-  {id:32,n:"Hoya",lat:"Hoya carnosa"},
-  {id:33,n:"Alocasia",lat:"Alocasia"},
-  {id:34,n:"Cyklámen",lat:"Cyclamen"},
-  {id:35,n:"Peperomia",lat:"Peperomia"},
-  {id:36,n:"Levandula",lat:"Lavandula"},
-  {id:37,n:"Vianočná hviezda",lat:"Euphorbia pulcherrima"},
+  {id:0,n:"Orchidea (Phalaenopsis)"},
+  {id:1,n:"Monstera deliciosa"},
+  {id:2,n:"Fikus elastický (Ficus elastica)"},
+  {id:3,n:"Aloe vera"},
+  {id:4,n:"Zamiokulkas (ZZ plant)"},
+  {id:5,n:"Pothos / Epipremnum"},
+  {id:6,n:"Svokrine jazyky (Sansevieria)"},
+  {id:7,n:"Fialka (Saintpaulia)"},
+  {id:8,n:"Kaktus guľatý"},
+  {id:9,n:"Begónia"},
+  {id:10,n:"Šéflera (Schefflera)"},
+  {id:11,n:"Dracéna"},
+  {id:12,n:"Filodendron srdcový"},
+  {id:13,n:"Kalatea (Calathea)"},
+  {id:14,n:"Papraď (Nephrolepis)"},
+  {id:15,n:"Tučnolist / Crassula"},
+  {id:16,n:"Brečtan (Hedera helix)"},
+  {id:17,n:"Spatifilum (Spathiphyllum)"},
+  {id:18,n:"Antúrium"},
+  {id:19,n:"Fikus benjamín"},
+  {id:20,n:"Yucca"},
+  {id:21,n:"Palma Areka"},
+  {id:22,n:"Aglaonema"},
+  {id:23,n:"Dieffenbachia"},
+  {id:24,n:"Kroton (Codiaeum)"},
+  {id:25,n:"Pilea peperomioides"},
+  {id:26,n:"Maranta"},
+  {id:27,n:"Haworthia"},
+  {id:28,n:"Echeveria"},
+  {id:29,n:"Tradescantia"},
+  {id:30,n:"Kalanchoe"},
+  {id:31,n:"Zelenec (Chlorophytum)"},
+  {id:32,n:"Hoya / Voskovka"},
+  {id:33,n:"Alocasia"},
+  {id:34,n:"Cyklámen"},
+  {id:35,n:"Peperomia"},
+  {id:36,n:"Levanduľa"},
+  {id:37,n:"Vianočná hviezda"},
+  {id:38,n:"Kaktus stĺpovitý (Cereus)"},
+  {id:39,n:"Kaktus opuncie"},
+  {id:40,n:"Stromanthe"},
+  {id:41,n:"Palma horská (Chamaedorea)"},
+  {id:42,n:"Gerbera"},
+  {id:43,n:"Izbový bambus (Lucky bamboo)"},
+  {id:44,n:"Azalka (Rhododendron)"},
+  {id:45,n:"Fikus lyrata (Fiddle leaf fig)"},
+  {id:46,n:"Pachira (Money tree)"},
+  {id:47,n:"Oxalis / Šťavel"},
+  {id:48,n:"Dendrobium orchidea"},
+  {id:49,n:"Oncidium orchidea"},
+  {id:50,n:"Cattleya orchidea"},
+  {id:51,n:"Strelícia (Bird of paradise)"},
+  {id:52,n:"Kentia palma"},
+  {id:53,n:"Filodendron Monstera Adansonii"},
+  {id:54,n:"Filodendron Birkin"},
+  {id:55,n:"Calathea orbifolia"},
+  {id:56,n:"Calathea medallion"},
+  {id:57,n:"String of pearls (Senecio)"},
+  {id:58,n:"String of hearts (Ceropegia)"},
+  {id:59,n:"Rhipsalis"},
+  {id:60,n:"Adenium (Púštna ruža)"},
+  {id:61,n:"Fikus microcarpa (Ginseng)"},
+  {id:62,n:"Bonsai (Ficus)"},
+  {id:63,n:"Bambus (Bambusa)"},
+  {id:64,n:"Croton Petra"},
+  {id:65,n:"Scindapsus pictus (Satin pothos)"},
+  {id:66,n:"Antúrium clarinervium"},
+  {id:67,n:"Ctenanthe"},
+  {id:68,n:"Asparagus sprengeri"},
+  {id:69,n:"Aspidistra"},
+  {id:70,n:"Nephthytis / Syngonium"},
+  {id:71,n:"Coffea arabica (Kávovník)"},
+  {id:72,n:"Citrus (Citrón/Pomaranč)"},
+  {id:73,n:"Mäta"},
+  {id:74,n:"Bazalka"},
+  {id:75,n:"Rozmarín"},
+  {id:76,n:"Euphorbia trigona"},
+  {id:77,n:"Schlumbergera (Vianočný kaktus)"},
+  {id:78,n:"Lithops (Živé kamene)"},
+  {id:79,n:"Gasteria"},
+  {id:80,n:"Sedum"},
+  {id:81,n:"Senecio rowleyanus"},
+  {id:82,n:"Tillandsia (Air plant)"},
+  {id:83,n:"Neoregelia (Bromélia)"},
+  {id:84,n:"Vriesea (Bromélia)"},
 ];
 
-const NAMES = DB.map(p => `${p.id}=${p.n}`).join(",");
+const NAMES = DB.map(p => p.id + "=" + p.n).join("\n");
+const DB_SIZE = DB.length;
 
 export async function POST(request) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
@@ -62,7 +106,6 @@ export async function POST(request) {
       return Response.json({ error: "Chýba obrázok" }, { status: 400 });
     }
 
-    // Volanie Anthropic API zo servera
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
@@ -72,7 +115,7 @@ export async function POST(request) {
       },
       body: JSON.stringify({
         model: "claude-sonnet-4-20250514",
-        max_tokens: 50,
+        max_tokens: 100,
         messages: [
           {
             role: "user",
@@ -87,7 +130,21 @@ export async function POST(request) {
               },
               {
                 type: "text",
-                text: `Identify this houseplant from the photo. Match it to the closest option from this list and reply ONLY with the number ID. Nothing else, just the number.\n\n${NAMES}`,
+                text: `You are an expert botanist. Carefully analyze this photo of a houseplant.
+
+Look at:
+- Leaf shape, size, color, texture, patterns
+- Stem type (woody, vine, rosette, thick/thin)
+- Flowers if present (color, shape)
+- Overall growth habit
+- Any distinctive features (holes in leaves, variegation, spines, aerial roots)
+
+Then match it to the SINGLE closest plant from this list. Consider all visual details before deciding.
+
+Plant list:
+${NAMES}
+
+IMPORTANT: Reply with ONLY the ID number. Nothing else. Just one number.`,
               },
             ],
           },
@@ -119,7 +176,7 @@ export async function POST(request) {
     }
 
     const id = parseInt(match[0]);
-    if (id < 0 || id >= DB.length) {
+    if (id < 0 || id >= DB_SIZE) {
       return Response.json(
         { error: "ID mimo rozsah: " + id },
         { status: 422 }
